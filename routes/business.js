@@ -11,14 +11,20 @@ AWS.config.update({
 });
 const dynamodbDocClient = new AWS.DynamoDB.DocumentClient();
 
-
 router.post('', (req, res, next) => {
-    const params = {
+
+    let business_id = uuid();
+    const user_business_params = {
+        TableName: "user_business",
+        Item: {
+            "user_id": req.body.user_id,
+            "business_id": business_id
+        }
+    };
+    const businesses_params = {
         TableName: "businesses",
         Item: {
-            "business_id": uuid(),
-            "user_id": req.body.user_id,
-            "email": req.body.email,
+            "business_id": business_id,
             "name": req.body.name,
             "categories": req.body.categories,
             "address": req.body.address,
@@ -30,55 +36,33 @@ router.post('', (req, res, next) => {
 
     console.log("Adding a new item...");
     res.setHeader('Access-Control-Allow-Origin', '*');
-    dynamodbDocClient.put(params, function (err, data) {
+
+    dynamodbDocClient.put(user_business_params, (err, result_user_business) => {
         if (err) {
-            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-            return res.status(500).json({error: "Unable to add item"});
+            console.error("Unable to add item to user_business table Error JSON:", JSON.stringify(err));
+            return res.status(500).json({error: "Unable to add item to user_business table"});
         } else {
-            console.log("Added item:", JSON.stringify(data, null, 2));
-            res.status(200).json(data);
+            console.log("Result of adding to user_business table ", result_user_business);
+            dynamodbDocClient.put(businesses_params, function (err, result_businesses) {
+                if (err) {
+                    console.error("Unable to add item to businesses table Error JSON:", JSON.stringify(err));
+                    return res.status(500).json({error: "Unable to add item to businesses table"});
+                } else {
+                    console.log("Result of adding to businesses table ", result_businesses);
+                    res.status(200).json(result_businesses);
+                }
+            });
         }
     });
 });
-
-function findBusinessHelper(params) {
-    return new Promise((resolve, reject) => {
-        dynamodbDocClient.scan(params, (err, data) => {
-            if (err) {
-                console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-                reject(err);
-            } else {
-                resolve(data);
-            }
-        });
-    });
-}
-
-const findBusiness = async (params) => {
-    let scanresult;
-    do {
-        scanresult = await findBusinessHelper(params);
-        // console.log(" %s scanresult after findBusinessHelper %s", new Date().toISOString(), JSON.stringify(scanresult));
-        if (scanresult.Count > 0) {
-            return scanresult.Items;
-        } else {
-            if (scanresult.LastEvaluatedKey) {
-                scanresult.ExclusiveStartKey = scanresult.LastEvaluatedKey;
-            } else {
-                return {error: "Not Found"};
-            }
-        }
-    } while (scanresult.LastEvaluatedKey);
-}
-
-router.get('', async function (req, res, next) {
+router.get('', async (req, res, next) => {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
     const user_id = req.query.user_id;
     console.log("Fetching records based on userid", user_id);
-    const params = {
-        TableName: "businesses",
-        FilterExpression: '#user_id = :user_id',
+    const user_business_params = {
+        TableName: "user_business",
+        KeyConditionExpression: "#user_id = :user_id",
         ExpressionAttributeNames: {
             '#user_id': 'user_id',
         },
@@ -86,12 +70,36 @@ router.get('', async function (req, res, next) {
             ':user_id': user_id,
         },
     };
-    findBusiness(params).then((data) => {
-        console.log("%s ********* business = %s ", new Date().toISOString(), data);
-        return res.json(data);
-    }).catch((err) => {
-        return res.status(404).json({error: "Business not found"});
-    })
+    dynamodbDocClient.query(user_business_params, function (err, user_business_result) {
+        if (err) {
+            console.error("Unable to query user_business. Error:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("user_business Query succeeded.", user_business_result);
 
+            user_business_result.Items.forEach(function (item) {
+                console.log(" -", item.user_id + ": " + item.business_id);
+                const businesses_params = {
+                    TableName: "businesses",
+                    KeyConditionExpression: "#business_id = :business_id",
+                    ExpressionAttributeNames: {
+                        '#business_id': 'business_id',
+                    },
+                    ExpressionAttributeValues: {
+                        ':business_id': item.business_id,
+                    },
+                };
+                dynamodbDocClient.query(businesses_params, function (err, businesses_result) {
+                    if (err) {
+                        console.error("Unable to query businesses. Error:", JSON.stringify(err, null, 2));
+                    } else {
+                        console.log("Businesses Query succeeded.", businesses_result.Items[0]);
+                        return res.json(businesses_result.Items[0]);
+                    }
+                });
+            });
+
+        }
+    });
 })
+
 module.exports = router;
