@@ -100,4 +100,38 @@ router.get('', async (req, res) => {
     }
 })
 
+router.delete('/:business_id', async (req, res) => {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const user_id = req.query.user_id;
+    const business_id = req.params.business_id;
+    console.log("Fetching records based on userid", user_id);
+
+    const user_business_params = {
+        TableName: "user_business",
+        Key: {
+            "user_id": user_id
+        }
+    };
+
+    let user_business_result;
+    try {
+        user_business_result = await dynamodbDocClient.delete(user_business_params).promise();
+        console.log("user_business delete results :", user_business_result);
+
+        const businesses_params = {
+            TableName: "businesses",
+            Key: {
+                "business_id": business_id
+            }
+        };
+        let businesses_result = await dynamodbDocClient.delete(businesses_params).promise();
+        console.log("Businesses delete results", businesses_result);
+        return res.json(businesses_result);
+
+    } catch (err) {
+        res.status(500).json({error_message: "Error occurred while deleting business", error: err});
+    }
+})
+
 module.exports = router;
