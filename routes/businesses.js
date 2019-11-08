@@ -26,7 +26,7 @@ router.post('', (req, res) => {
         Item: {
             "business_id": business_id,
             "name": req.body.name,
-            "categories": req.body.categories,
+            "categories": req.body.categories.join(),
             "address": req.body.address,
             "city": req.body.city,
             "state": req.body.state,
@@ -55,45 +55,35 @@ router.post('', (req, res) => {
         }
     });
 });
+
 router.get('', async (req, res) => {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
-    const user_id = req.query.user_id;
-    console.log("Fetching records based on userid", user_id);
-    const user_business_params = {
-        TableName: "user_business",
-        KeyConditionExpression: "#user_id = :user_id",
+    const city = req.query.city;
+    const event_type = req.query.event_type;
+    console.log(`Fetching records based on city = ${city} and event_type = ${event_type}`);
+    const business_search_params = {
+        TableName: "businesses",
+        IndexName: 'city-index',
+        KeyConditionExpression: "#city = :city",
+        FilterExpression: 'contains (categories, :event_type)',
         ExpressionAttributeNames: {
-            '#user_id': 'user_id',
+            '#city': 'city',
         },
         ExpressionAttributeValues: {
-            ':user_id': user_id,
+            ':city': city,
+            ':event_type': event_type
         },
     };
-    let user_business_result;
+    let business_search_result;
     try {
-        user_business_result = await dynamodbDocClient.query(user_business_params).promise();
-        console.log("user_business query results :", user_business_result);
-        if (user_business_result && user_business_result.Items && user_business_result.Items.length > 0) {
-            const businesses_params = {
-                TableName: "businesses",
-                KeyConditionExpression: "#business_id = :business_id",
-                ExpressionAttributeNames: {
-                    '#business_id': 'business_id'
-                },
-                ExpressionAttributeValues: {
-                    ':business_id': user_business_result.Items[0].business_id
-                },
-            };
-            let businesses_result = await dynamodbDocClient.query(businesses_params).promise();
-            if (businesses_result && businesses_result.Items && businesses_result.Items.length > 0) {
-                console.log("Businesses Query results", businesses_result.Items[0]);
-                return res.json(businesses_result.Items[0]);
-            } else {
-                return res.status(404).json({error: "Businesses not found"});
-            }
+        business_search_result = await dynamodbDocClient.query(business_search_params).promise();
+        console.log("business_search_result  :", business_search_result);
+        if (business_search_result && business_search_result.Items && business_search_result.Items.length > 0) {
+            console.log("Businesses Query results", business_search_result.Items);
+            return res.json(business_search_result.Items);
         } else {
-            return res.status(404).json({error: "User not found"});
+            return res.status(404).json({error: `Businesses matching event type ${event_type} not found`});
         }
     } catch (err) {
         res.status(500).json({error_message: "Error occurred while fetching business", error: err});
@@ -105,7 +95,7 @@ router.delete('/:business_id', async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     const user_id = req.query.user_id;
     const business_id = req.params.business_id;
-    console.log("Fetching records based on userid", user_id);
+    console.log(`Deleting records based on user_id = ${user_id} and business_id = ${business_id}`);
 
     const user_business_params = {
         TableName: "user_business",
@@ -131,6 +121,41 @@ router.delete('/:business_id', async (req, res) => {
 
     } catch (err) {
         res.status(500).json({error_message: "Error occurred while deleting business", error: err});
+    }
+})
+
+router.put('/:business_id', async (req, res) => {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const business_id = req.params.business_id;
+    console.log("Updating records based on business_id", business_id);
+    try {
+        const businesses_params = {
+            TableName: "businesses",
+            Key: {
+                "business_id": business_id
+            },
+            UpdateExpression: "set #business_name = :business_name, categories=:categories, address=:address, city=:city, #business_state=:state, postal_code=:postal_code",
+            ExpressionAttributeNames: {
+                '#business_name': 'name',
+                '#business_state': 'state'
+            },
+            ExpressionAttributeValues: {
+                ":business_name": req.body.business_name,
+                ":categories": req.body.categories,
+                ":address": req.body.address,
+                ":city": req.body.city,
+                ":state": req.body.state,
+                ":postal_code": req.body.postal_code,
+            },
+            ReturnValues: "UPDATED_NEW"
+        };
+        let businesses_update_result = await dynamodbDocClient.update(businesses_params).promise();
+        console.log("Businesses update results", businesses_update_result);
+        return res.json(businesses_update_result);
+
+    } catch (err) {
+        res.status(500).json({error_message: "Error occurred while updating business", error: err});
     }
 })
 
