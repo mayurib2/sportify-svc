@@ -1,7 +1,7 @@
 const express = require('express');
 const AWS = require('aws-sdk');
 const router = new express.Router();
-
+const uuid = require('uuidv4').default;
 
 AWS.config.update({
     region: process.env.region,
@@ -10,6 +10,45 @@ AWS.config.update({
     secretAccessKey: process.env.secretAccessKey
 });
 const dynamodbDocClient = new AWS.DynamoDB.DocumentClient();
+
+router.post('/:user_id/businesses', async (req, res) => {
+    let business_id = uuid(), result_user_business, result_businesses;
+    const user_business_params = {
+        TableName: "user_business",
+        Item: {
+            "user_id": req.params.user_id,
+            "business_id": business_id
+        },
+        ConditionExpression: "attribute_not_exists(user_id)"
+    };
+    const businesses_params = {
+        TableName: "businesses",
+        Item: {
+            "business_id": business_id,
+            "name": req.body.name,
+            "categories": req.body.categories.join(),
+            "address": req.body.address,
+            "city": req.body.city,
+            "state": req.body.state,
+            "postal_code": req.body.postal_code
+        },
+        ConditionExpression: "attribute_not_exists(business_id)"
+    };
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    try {
+        result_user_business = await dynamodbDocClient.put(user_business_params).promise();
+    } catch (err) {
+        console.error("Unable to add user to user_business table", JSON.stringify(err));
+        return res.status(500).json({error: "Unable to add user. User already has a associated business"});
+    }
+    try {
+        result_businesses = await dynamodbDocClient.put(businesses_params).promise();
+    } catch (err) {
+        console.error("Unable to add business to businesses table", JSON.stringify(err));
+        return res.status(500).json({error: "Unable to add business to businesses table"});
+    }
+    res.status(200).json({message: "Business created successfully"});
+});
 
 router.get('/:user_id/businesses', async (req, res) => {
 

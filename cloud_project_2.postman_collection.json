@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "e79c3517-a519-4ae2-a72e-ab184697185a",
+		"name": "cloud_project_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Business",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Similian_Thai_4\",\n  \"categories\": [\n    \"asian_food_4\",\n    \"restaurant_4\"\n  ],\n  \"address\": \"420 Thai Blvd_4\",\n  \"city\": \"Dublin_1\",\n  \"state\": \"CA_4\",\n  \"postal_code\": \"91234_4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/users/email_4@gmail.com/businesses",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"email_4@gmail.com",
+						"businesses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Business By UserId (email) Path Param",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": \"aws_cognito_identity_1\",\n  \"email\": \"email1@gmail.com\",\n  \"name\": \"Sala Thai 3\",\n  \"categories\": [\n    \"thai food\",\n    \"restaurant\"\n  ],\n  \"address\": \"420 Thai Blvd\",\n  \"city\": \"Dublin\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94568\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/users/email_4@gmail.com/businesses",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"email_4@gmail.com",
+						"businesses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SEARCH Business By event_type FIRST CALL",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": \"aws_cognito_identity_1\",\n  \"email\": \"email1@gmail.com\",\n  \"name\": \"Sala Thai 3\",\n  \"categories\": [\n    \"thai food\",\n    \"restaurant\"\n  ],\n  \"address\": \"420 Thai Blvd\",\n  \"city\": \"Dublin\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94568\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/businesses?event_type=asian&city=Dublin_1",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"businesses"
+					],
+					"query": [
+						{
+							"key": "event_type",
+							"value": "asian"
+						},
+						{
+							"key": "city",
+							"value": "Dublin_1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SEARCH Business By event_type SECOND TIME With lastEvaluatedKey",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": \"aws_cognito_identity_1\",\n  \"email\": \"email1@gmail.com\",\n  \"name\": \"Sala Thai 3\",\n  \"categories\": [\n    \"thai food\",\n    \"restaurant\"\n  ],\n  \"address\": \"420 Thai Blvd\",\n  \"city\": \"Dublin\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94568\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/businesses?event_type=restaurant&city=Dublin&last_key_city=Dublin&last_key_business_id=b19cd1c9-8a6d-4048-af3a-899f9cc153bb",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"businesses"
+					],
+					"query": [
+						{
+							"key": "event_type",
+							"value": "restaurant"
+						},
+						{
+							"key": "city",
+							"value": "Dublin"
+						},
+						{
+							"key": "last_key_city",
+							"value": "Dublin"
+						},
+						{
+							"key": "last_key_business_id",
+							"value": "b19cd1c9-8a6d-4048-af3a-899f9cc153bb"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Review",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cool\": 1,\n  \"funny\": 2,\n  \"stars\": 3,\n  \"text\": \"awesome food\",\n  \"useful\": 1,\n  \"user_id\": \"reviewer_1@gmail.com\",\n  \"username\": \"gal_1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/businesses/c112a357-5da1-405f-9aa6-b69659931454/reviews",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"businesses",
+						"c112a357-5da1-405f-9aa6-b69659931454",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Business",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Panda Express_2_UPDATED\",\n  \"categories\": [\n    \"kung pao_2_UPDATED\",\n    \"restaurant_2_UPDATED\"\n  ],\n  \"address\": \"4378 panda Blvd_2_UPDATED\",\n  \"city\": \"Dublin_2_UPDATED\",\n  \"state\": \"CA_2_UPDATED\",\n  \"postal_code\": \"97832_2_UPDATED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/businesses/4ccf2d48-cd0d-47a6-ac6f-aef72f62fccd",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"businesses",
+						"4ccf2d48-cd0d-47a6-ac6f-aef72f62fccd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Business",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": \"aws_cognito_identity_1\",\n  \"email\": \"email1@gmail.com\",\n  \"name\": \"Sala Thai 3\",\n  \"categories\": [\n    \"thai food\",\n    \"restaurant\"\n  ],\n  \"address\": \"420 Thai Blvd\",\n  \"city\": \"Dublin\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94568\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/businesses/4ccf2d48-cd0d-47a6-ac6f-aef72f62fccd?user_id=email_2@gmail.com",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"businesses",
+						"4ccf2d48-cd0d-47a6-ac6f-aef72f62fccd"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "email_2@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
