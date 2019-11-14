@@ -30,7 +30,8 @@ router.get('', async (req, res) => {
             ExpressionAttributeValues: {
                 ':city': city,
                 ':event_type': event_type
-            }
+            },
+            Limit:20
         };
     } else if (req.query.city) {
         city = req.query.city;
@@ -68,7 +69,7 @@ router.get('', async (req, res) => {
                 search_result_length = all_business_search_result.length;
             }
             if (business_search_result.LastEvaluatedKey) {
-                if (search_result_length > 10) {
+                if (search_result_length > 20) {
                     response.businesses = all_business_search_result;
                     response.LastEvaluatedKey = business_search_result.LastEvaluatedKey;
                     return res.json(response);
