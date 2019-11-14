@@ -1,4 +1,4 @@
-# FinalCloudProject-NodeJS #
+# Sportify-svc #
 
 
 **Create a business**
