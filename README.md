@@ -373,3 +373,14 @@ aws dynamodb update-table \
     "[{\"Delete\":{\"IndexName\":\"city-index\"}}]" \
 --endpoint-url http://localhost:8000
 ```
+
+***Create User Details Table***
+```
+aws dynamodb create-table \
+    --table-name user_details \
+    --attribute-definitions \
+        AttributeName=user_id,AttributeType=S \
+    --key-schema AttributeName=user_id,KeyType=HASH  \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+
+```

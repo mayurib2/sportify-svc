@@ -1,3 +1,4 @@
+
 const express = require('express');
 const AWS = require('aws-sdk');
 const router = new express.Router();
@@ -13,27 +14,41 @@ const dynamodbDocClient = new AWS.DynamoDB.DocumentClient();
 
 router.get('', async (req, res) => {
     let city, event_type;
+    let business_search_params;
     res.setHeader('Access-Control-Allow-Origin', '*');
     if (req.query.city && req.query.event_type) {
         city = req.query.city;
         event_type = req.query.event_type;
-    } else {
-        return res.status(400).json({error: `city and event_type must be specified in query parameter`});
-    }
+        business_search_params = {
+            TableName: "businesses",
+            IndexName: 'city-index',
+            KeyConditionExpression: "#city = :city",
+            FilterExpression: 'contains (categories, :event_type)',
+            ExpressionAttributeNames: {
+                '#city': 'city',
+            },
+            ExpressionAttributeValues: {
+                ':city': city,
+                ':event_type': event_type
+            }
+        };
+    } else if (req.query.city) {
+        city = req.query.city;
+        business_search_params = {
+            TableName: "businesses",
+            IndexName: 'city-index',
+            KeyConditionExpression: "#city = :city",
+            ExpressionAttributeNames: {
+                '#city': 'city',
+            },
+            ExpressionAttributeValues: {
+                ':city': city
+            }
+        };
+    } else
+        return res.status(400).json({error: `Either city or city and event_type must be specified in query parameter`});
     console.log(`Fetching records based on city = ${city} and event_type = ${event_type}`);
-    const business_search_params = {
-        TableName: "businesses",
-        IndexName: 'city-index',
-        KeyConditionExpression: "#city = :city",
-        FilterExpression: 'contains (categories, :event_type)',
-        ExpressionAttributeNames: {
-            '#city': 'city',
-        },
-        ExpressionAttributeValues: {
-            ':city': city,
-            ':event_type': event_type
-        }
-    };
+
     if (req.query.last_key_city && req.query.last_key_business_id) {
         business_search_params.ExclusiveStartKey = {
             city: req.query.last_key_city,
