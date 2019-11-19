@@ -124,6 +124,39 @@ router.put('/:business_id', async (req, res) => {
     }
 })
 
+router.get('/:business_id', async (req, res) => {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const business_id = req.params.business_id;
+    console.log("Getting business based on business id", business_id);
+    try {
+    const businesses_param = {
+        TableName: "businesses",
+        KeyConditionExpression: "#business_id = :business_id",
+            ExpressionAttributeNames: {
+                '#business_id': 'business_id',
+            },
+            ExpressionAttributeValues: {
+                ':business_id': business_id
+            }
+    };
+    let business_result;
+
+        business_result = await dynamodbDocClient.query(businesses_param).promise();
+        console.log("business query results :", business_result);
+        if(business_result && business_result.Items && business_result.Items.length > 0) {
+            console.log("Businesses Query results", business_result.Items);
+            return res.json(business_result.Items);
+        }
+        else {
+            return res.status(404).json({error: "Business not found"});
+        }
+    }
+    catch (err) {
+            res.status(500).json({error_message: "Error occurred while fetching business", error: err});
+    }
+})
+
 router.post('/:business_id/reviews', (req, res) => {
     const review_params = {
         TableName: "reviews-merged-data",
