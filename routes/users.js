@@ -21,21 +21,41 @@ router.post('/:user_id/businesses', async (req, res) => {
         },
         ConditionExpression: "attribute_not_exists(user_id)"
     };
-    const businesses_params = {
-        TableName: "businesses",
-        Item: {
-            "business_id": business_id,
-            "name": req.body.name,
-            "categories": req.body.categories.join(),
-            "address": req.body.address,
-            "city": req.body.city,
-            "state": req.body.state,
-            "postal_code": req.body.postal_code
-        },
-        ConditionExpression: "attribute_not_exists(business_id)"
-    };
     res.setHeader('Access-Control-Allow-Origin', '*');
     try {
+        if(!req.body.name) {
+            return res.status(400).json({error: "Business name must be specified"});
+        }
+        else if(!req.body.categories) {
+            return res.status(400).json({error: "Categories must be specified"});
+        }
+        else if(!req.body.address) {
+            return res.status(400).json({error: "Address must be specified"});
+        }
+        else if(!req.body.city) {
+            return res.status(400).json({error: "City must be specified"});
+        }
+        else if(!req.body.state) {
+            return res.status(400).json({error: "State must be specified"});
+        }
+        else if(!req.body.postal_code) {
+            return res.status(400).json({error: "Postal Code must be specified"});
+        }
+        const businesses_params = {
+            TableName: "businesses",
+            Item: {
+                "business_id": business_id,
+                "name": req.body.name,
+                "categories": req.body.categories.join(),
+                "address": req.body.address,
+                "city": req.body.city,
+                "state": req.body.state,
+                "postal_code": req.body.postal_code
+            },
+            ConditionExpression: "attribute_not_exists(business_id)"
+        };
+
+
         result_user_business = await dynamodbDocClient.put(user_business_params).promise();
     } catch (err) {
         console.error("Unable to add user to user_business table", JSON.stringify(err));
