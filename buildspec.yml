@@ -30,3 +30,5 @@ artifacts:
     - views/
     - models/
     - public/
+
+  #**/*  
