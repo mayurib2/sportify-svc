@@ -118,6 +118,66 @@
 
   * **Code:** 404  <br />
     **Response Body:** `{error: "Businesses not found"}`
+  
+**Get business by business_id**
+----
+  Get a business for a given business id.
+
+* **URL**
+
+  `/businesses/business_id`
+  
+  Sample Url
+  `http://{hostname}/businesses/business_id`
+
+* **Method:**
+
+  `GET`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Response Body:** 
+
+   ``` 
+    {
+        "address": "string",
+        "city": "string",
+        "name": "string",
+        "categories": "string (comma separated categories)",
+        "state": "string",
+        "postal_code": "string",
+        "business_id": "string"
+    }
+   ```
+  
+     **Sample Response Body**
+     ```
+          {
+            "name": "Maria Maria",
+            "categories": [
+              "mexican food",
+              "restaurant"
+            ],
+            "address": "710 Camino Ramon",
+            "city": "Danville",
+            "state": "CA",
+            "postal_code": "94526"
+          }
+
+     ```
+
+* **Error Response:**
+
+  * **Code:** 404  <br />
+    **Response Body:** `{error: "User not found"}`
+
+  OR
+
+  * **Code:** 404  <br />
+    **Response Body:** `{error: "Businesses not found"}`  
+    
+
     
 **Search a business by event type (alias for category in db) and city**
 ----
