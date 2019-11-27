@@ -1,26 +1,29 @@
-var supertest = require("supertest");
-var should = require("should");
+const superTest = require("supertest");
+const should = require("should");
+const axios = require('axios');
+const request = require('request');
+const expect = require('chai').expect;
 
-// This agent refers to PORT where the program is running.
+require("../index.js");
 
-var server = supertest.agent("http://localhost:3001");
+it('Check get business by business id is working', function(done) {
+  request('http://localhost:3001/businesses/02151fdb-8b50-4068-b8a1-1d24ed425c59', function (error, response, body) {
+    expect(response.statusCode).to.equal(200);
 
-// UNIT test begin
-
-describe("SAMPLE unit test",function(){
-
-  // #1 should return home page
-  it("should return home page",function(done){
-    // calling home page
-    server
-    .get("/")
-    .expect("Content-type",/text/)
-    .expect(200) // THis is HTTP response
-    .end(function(err,res){
-      // HTTP status should be 200
-      res.status.should.equal(200);
-      done();
-    });
+    const bodyJson = JSON.parse(response.body);
+    expect(bodyJson.length).to.be.above(0);
+    done();
   });
+});
 
+it('Check search business by event type is working', function (done) {
+  axios.get('http://localhost:3001/businesses?event_type=restaurant&city=Danville')
+      .then((res) => {
+        expect(res.status).to.equal(200);
+        done();
+      })
+      .catch((error) => {
+        console.error(error)
+        done();
+      })
 });
