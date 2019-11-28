@@ -29,3 +29,27 @@ it('Check search business by event type is working', function (done) {
             done();
         })
 });
+
+it('Check search business by event type and city is working', function (done) {
+    axios.get('http://localhost:3001/businesses?event_type=restaurant&city=Danville')
+        .then((res) => {
+            expect(res.status).to.equal(200);
+            done();
+        })
+        .catch((error) => {
+            console.error(error)
+            done();
+        })
+});
+
+it('Check update business is working', function (done) {
+    axios.get('localhost:3001/businesses/6284b41e-b61a-4bab-92ad-7cabe7e3201f')
+        .then((res) => {
+            expect(res.status).to.equal(200);
+            done();
+        })
+        .catch((error) => {
+            console.error(error)
+            done();
+        })
+});
