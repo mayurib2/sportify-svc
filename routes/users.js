@@ -12,6 +12,7 @@ AWS.config.update({
 const dynamodbDocClient = new AWS.DynamoDB.DocumentClient();
 
 router.post('/:user_id/businesses', async (req, res) => {
+    console.log("process.env.endpoint ",process.env.endpoint);
     let business_id = uuid(), result_user_business, result_businesses;
     const user_business_params = {
         TableName: "user_business",
@@ -41,6 +42,15 @@ router.post('/:user_id/businesses', async (req, res) => {
         else if(!req.body.postal_code) {
             return res.status(400).json({error: "Postal Code must be specified"});
         }
+
+
+
+        result_user_business = await dynamodbDocClient.put(user_business_params).promise();
+    } catch (err) {
+        console.error("Unable to add user to user_business table", JSON.stringify(err));
+        return res.status(500).json({error: "Unable to add user. User already has a associated business"});
+    }
+    try {
         const businesses_params = {
             TableName: "businesses",
             Item: {
@@ -54,14 +64,6 @@ router.post('/:user_id/businesses', async (req, res) => {
             },
             ConditionExpression: "attribute_not_exists(business_id)"
         };
-
-
-        result_user_business = await dynamodbDocClient.put(user_business_params).promise();
-    } catch (err) {
-        console.error("Unable to add user to user_business table", JSON.stringify(err));
-        return res.status(500).json({error: "Unable to add user. User already has a associated business"});
-    }
-    try {
         result_businesses = await dynamodbDocClient.put(businesses_params).promise();
     } catch (err) {
         console.error("Unable to add business to businesses table", JSON.stringify(err));
